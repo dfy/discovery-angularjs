@@ -1,0 +1,45 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    margin-left: 180px;
+}
+
+#navigation {
+    float: left;
+    width: 170px;
+}
+
+#navigation ul {
+    margin-top: 0;
+}
+
+#content {
+    margin-left: 180px;
+}
+
+th {
+    text-align: left;
+}
+
+label {
+    display: block;
+}
+input, textarea {
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+.form-separator {
+    clear: right;
+}
+#item-id {
+    width: 60px;
+}
+#item-summary {
+    width: 450px;
+}
+#item-content {
+    width: 450px;
+    height: 250px;
+}
