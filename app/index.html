@@ -1,8 +1,13 @@
-<html>
+<html><!--  ng-app="discovery" -->
     <head>
         <title>Discovery</title>
+
         <link href="components/normalize-css/normalize.css" type="text/css" rel="stylesheet">
         <link href="global.css" type="text/css" rel="stylesheet">
+
+        <script src="components/angular/angular.js"></script>
+        <script src="discovery/application.js"></script>
+        <script src="hello/controllers.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -20,6 +25,10 @@
                     <ul>
                         <li><a href="projects/project1/index.html">Project #1</a></li>
                     </ul>
+                    <div ng-controller="hello" ng-app="helloMod">
+                        <input ng-model="greeting.text" />
+                        <p>{{greeting.text}}, World</p>
+                    </div>
                 </div>
             </div>
         </div>
