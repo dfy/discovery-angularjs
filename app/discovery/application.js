@@ -1,3 +1,7 @@
 'use strict'
 
-var Application = Application || {};
+angular.module('DiscoveryApp',
+  [
+    'HelloModule'
+  ]
+);

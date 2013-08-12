@@ -1,4 +1,4 @@
-<html><!--  ng-app="discovery" -->
+<html ng-app="DiscoveryApp">
     <head>
         <title>Discovery</title>
 
@@ -6,8 +6,8 @@
         <link href="global.css" type="text/css" rel="stylesheet">
 
         <script src="components/angular/angular.js"></script>
-        <script src="discovery/application.js"></script>
         <script src="hello/controllers.js"></script>
+        <script src="discovery/application.js"></script>
     </head>
     <body>
         <div id="wrapper">
@@ -25,10 +25,11 @@
                     <ul>
                         <li><a href="projects/project1/index.html">Project #1</a></li>
                     </ul>
-                    <div ng-controller="hello" ng-app="helloMod">
+                    <div ng-controller="hello">
                         <input ng-model="greeting.text" />
                         <p>{{greeting.text}}, World</p>
                     </div>
+                    <div ng-view></div>
                 </div>
             </div>
         </div>
