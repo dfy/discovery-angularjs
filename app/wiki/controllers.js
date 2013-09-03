@@ -3,17 +3,53 @@
 var wikiModule = angular.module('WikiModule', []);
 
 wikiModule.controller('wiki.index', function($scope) {
-    
+    //
 });
 
-wikiModule.controller('wiki.view', function($scope, $routeParams) {
-    $scope.wikidoc = {
-        title: decodeURIComponent($routeParams.name)
+// if we get a 404, create new wikidoc with name from routeparams
+
+wikiModule.controller('wiki.view', function($scope, $routeParams, pouchWrapper) {
+    pouchWrapper.get($routeParams.name).then(function(res) {
+        $scope.wikidoc = res;
+    }, function(reason) {
+        console.log($routeParams.name);
+        console.log(reason);
+    });
+
+    $scope.editUrl = '/#/project/test/wiki/' + encodeURIComponent($routeParams.name) + '/edit';
+});
+
+wikiModule.controller('wiki.edit', function($scope, $routeParams, $location, wikiStore, pouchWrapper) {
+
+    var viewUrl = '/project/test/wiki/' + $routeParams.name;
+    $scope.viewUrl = '/#' + encodeURIComponent(viewUrl);
+
+    pouchWrapper.get($routeParams.name).then(function(res) {
+        $scope.wikidoc = res;
+    }, function(reason) {
+        console.log(reason);
+    });
+
+    /*$scope.wikidoc = {
+        title: decodeURIComponent($routeParams.name),
+        content: 'As a person I want to succeed so that I can win...'
+    };*/
+
+    /*$scope.$watch('wikidoc.content', function() {
+        console.log($scope.wikidoc.content);
+    });*/
+
+    $scope.editComplete = function() {
+        var doc = $scope.wikidoc;
+        doc._id = encodeURIComponent(doc.title);
+
+        pouchWrapper.put(doc).then(function(res) {
+            console.log("put: " + res);
+            $location.path(viewUrl);
+        }, function(reason) {
+            console.log(reason);
+        });
     };
-});
-
-wikiModule.controller('wiki.edit', function($scope, $routeParams) {
-    
 });
 
 wikiModule.config(

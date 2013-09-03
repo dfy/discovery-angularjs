@@ -1,0 +1,14 @@
+
+#wrapper {
+    margin: 5px;
+}
+
+ul {
+    padding-left: 14px;
+}
+
+textarea {
+    width: 500px;
+    height: 200px;
+    margin-bottom: 10px;
+}

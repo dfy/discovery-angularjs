@@ -3,16 +3,23 @@
         <title>Discovery</title>
 
         <link href="components/normalize-css/normalize.css" type="text/css" rel="stylesheet">
-        <link href="global.css" type="text/css" rel="stylesheet">
+        <link href="discovery.css" type="text/css" rel="stylesheet">
 
         <script src="components/angular/angular.js"></script>
+        <!--<script src="components/pouchdb/src/pouch.js"></script>-->
+        <script src="components/pouchdb/docs/static/assets/pouchdb-getting-started-todo/js/pouchdb-nightly.js"></script>
+
         <script src="hello/controllers.js"></script>
         <script src="wiki/controllers.js"></script>
+        <script src="wiki/services.js"></script>
         <script src="discovery/application.js"></script>
     </head>
     <body>
         <div id="wrapper">
             <div id="header">
+                <a href="#/">H</a>
+            </div>
+            <!--<div id="header">
                 <h1>Projects</h1>
             </div>
             <div id="navigation">
@@ -20,16 +27,16 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="projects/project1/index.html">Project #1</a></li>
                 </ul>
-            </div>
+            </div>-->
             <div id="page">
                 <div id="content">
-                    <ul>
+                    <!--<ul>
                         <li><a href="projects/project1/index.html">Project #1</a></li>
                     </ul>
                     <div ng-controller="hello">
                         <input ng-model="greeting.text" />
                         <p>{{greeting.text}}, World</p>
-                    </div>
+                    </div>-->
                     <div ng-view></div>
                 </div>
             </div>
