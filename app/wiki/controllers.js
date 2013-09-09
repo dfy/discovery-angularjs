@@ -12,17 +12,20 @@ wikiModule.controller('wiki.view', function($scope, $routeParams, pouchWrapper) 
     pouchWrapper.get($routeParams.name).then(function(res) {
         $scope.wikidoc = res;
     }, function(reason) {
-        console.log($routeParams.name);
         console.log(reason);
     });
 
-    $scope.editUrl = '/#/project/test/wiki/' + encodeURIComponent($routeParams.name) + '/edit';
+    $scope.editUrl = 
+        '/#/project/' + encodeURIComponent($routeParams.project) + 
+        '/wiki/' + encodeURIComponent($routeParams.name) + '/edit';
 });
 
-wikiModule.controller('wiki.edit', function($scope, $routeParams, $location, wikiStore, pouchWrapper) {
+wikiModule.controller('wiki.edit', function($scope, $routeParams, $location, pouchWrapper) {
 
-    var viewUrl = '/project/test/wiki/' + $routeParams.name;
-    $scope.viewUrl = '/#' + encodeURIComponent(viewUrl);
+    var viewUrl = '/project/' + $routeParams.project + '/wiki/' + $routeParams.name;
+    $scope.viewUrl = 
+        '/#/project/' + encodeURIComponent($routeParams.project) + 
+        '/wiki/' + encodeURIComponent($routeParams.name);
 
     pouchWrapper.get($routeParams.name).then(function(res) {
         $scope.wikidoc = res;
@@ -44,7 +47,8 @@ wikiModule.controller('wiki.edit', function($scope, $routeParams, $location, wik
         doc._id = encodeURIComponent(doc.title);
 
         pouchWrapper.put(doc).then(function(res) {
-            console.log("put: " + res);
+            console.log("put: ");
+            console.log(res);
             $location.path(viewUrl);
         }, function(reason) {
             console.log(reason);
