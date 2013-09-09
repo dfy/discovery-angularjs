@@ -2,7 +2,6 @@
 
 var discoveryApp = angular.module('DiscoveryApp',
   [
-    'HelloModule',
     'WikiModule'
   ]
 );
@@ -18,7 +17,7 @@ discoveryApp.controller('discovery.project', function($scope, $routeParams) {
     };
 });
 
-helloModule.config(
+discoveryApp.config(
     function($routeProvider) {
         $routeProvider
             .when('/', {
