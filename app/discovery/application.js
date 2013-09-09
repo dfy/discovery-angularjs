@@ -6,8 +6,8 @@ var discoveryApp = angular.module('DiscoveryApp',
   ]
 );
 
-discoveryApp.controller('discovery.index', function($scope) {
-    
+discoveryApp.controller('discovery.index', function($scope, $location) {
+    $location.path('/project/test/wiki');
 });
 
 discoveryApp.controller('discovery.project', function($scope, $routeParams) {
