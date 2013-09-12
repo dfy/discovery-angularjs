@@ -13,6 +13,10 @@ wikiModule.controller('wiki.view', function($scope, $routeParams, pouchWrapper) 
         $scope.wikidoc = res;
     }, function(reason) {
         console.log(reason);
+        $scope.wikidoc = {
+            title: $routeParams.name,
+            body: ''
+        };
     });
 
     $scope.editUrl = 
@@ -31,6 +35,10 @@ wikiModule.controller('wiki.edit', function($scope, $routeParams, $location, pou
         $scope.wikidoc = res;
     }, function(reason) {
         console.log(reason);
+        $scope.wikidoc = {
+            title: $routeParams.name,
+            body: ''
+        };
     });
 
     /*$scope.wikidoc = {

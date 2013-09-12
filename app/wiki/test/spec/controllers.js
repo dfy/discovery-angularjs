@@ -88,6 +88,23 @@ describe('Wiki Controllers', function () {
 
       expect($scope.wikidoc).toBe(wikiDoc);
     });
+
+    it('should create a new doc if none is retrieved', function() {
+      pouchGetDeferred = $q.defer();
+      pouchGetDeferred.reject({
+        status: 404,
+        error: 'not_found',
+        reason: 'missing'
+      });
+
+      var ctrl = getController();
+      $scope.$apply();
+
+      expect($scope.wikidoc).toEqual({
+        title: 'hello world',
+        body: ''
+      });
+    });
   });
 
   describe('wiki.edit', function() {
@@ -121,6 +138,23 @@ describe('Wiki Controllers', function () {
       $scope.$apply();
 
       expect($scope.wikidoc).toBe(wikiDoc);
+    });
+
+    it('should create a new doc if none is retrieved', function() {
+      pouchGetDeferred = $q.defer();
+      pouchGetDeferred.reject({
+        status: 404,
+        error: 'not_found',
+        reason: 'missing'
+      });
+
+      var ctrl = getController();
+      $scope.$apply();
+
+      expect($scope.wikidoc).toEqual({
+        title: 'hello world',
+        body: ''
+      });
     });
 
     it('should save the document and redirect to the viewUrl after editing', function() {
