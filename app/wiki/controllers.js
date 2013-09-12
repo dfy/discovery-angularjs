@@ -3,13 +3,7 @@
 var wikiModule = (function(angular) {
   var module = angular.module('WikiModule', []);
 
-  module.controller('wiki.index', function($scope) {
-    //
-  });
-
-  // if we get a 404, create new wikidoc with name from routeparams
-
-  module.controller('wiki.view', function($scope, $routeParams, pouchWrapper) {
+  var setDocOnScope = function($scope, $routeParams, pouchWrapper) {
     pouchWrapper.get($routeParams.name).then(function(res) {
       $scope.wikidoc = res;
     }, function(reason) {
@@ -19,6 +13,16 @@ var wikiModule = (function(angular) {
         body: ''
       };
     });
+  };
+
+  module.controller('wiki.index', function($scope) {
+    //
+  });
+
+  // if we get a 404, create new wikidoc with name from routeparams
+
+  module.controller('wiki.view', function($scope, $routeParams, pouchWrapper) {
+    setDocOnScope($scope, $routeParams, pouchWrapper);
 
     $scope.editUrl = 
       '/#/project/' + encodeURIComponent($routeParams.project) + 
@@ -32,15 +36,7 @@ var wikiModule = (function(angular) {
       '/#/project/' + encodeURIComponent($routeParams.project) + 
       '/wiki/' + encodeURIComponent($routeParams.name);
 
-    pouchWrapper.get($routeParams.name).then(function(res) {
-      $scope.wikidoc = res;
-    }, function(reason) {
-      console.log(reason);
-      $scope.wikidoc = {
-        title: $routeParams.name,
-        body: ''
-      };
-    });
+    setDocOnScope($scope, $routeParams, pouchWrapper);
 
     /*$scope.wikidoc = {
       title: decodeURIComponent($routeParams.name),
