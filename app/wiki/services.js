@@ -2,6 +2,11 @@
 
 var wikiModule = wikiModule || angular.module('WikiModule', []);
 
+wikiModule.factory('wikiMarkdown', function() {
+    // markdown is created in the global scope
+    return markdown;
+});
+
 wikiModule.factory('myPouch', function() {
     return new PouchDB('testdiscovery');
 });
