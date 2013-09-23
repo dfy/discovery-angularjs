@@ -9,6 +9,7 @@ var wikiModule = (function(module, angular) {
       link: function(scope, element, attrs) {
         scope.$watch(
           function(scope) {
+            // if attrs.content...
             // watch the 'compile' expression for changes
             return scope.$eval(attrs.content);
           },
