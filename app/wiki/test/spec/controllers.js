@@ -35,10 +35,10 @@ describe('Wiki Controllers', function () {
   // init pouch mock
   beforeEach(function(){
     pouchWrapperMock = {
-      get: function(param) {
+      find: function(param) {
         return pouchGetDeferred.promise;
       },
-      put: function(param) {
+      create: function(param) {
         return pouchPutDeferred.promise;
       }
     };
@@ -64,7 +64,7 @@ describe('Wiki Controllers', function () {
           project: 'test',
           name: 'hello world'
         },
-        pouchWrapper: pouchWrapperMock
+        wikiStore: pouchWrapperMock
       };
       return $controller('wiki.view', params);
     }
@@ -116,7 +116,7 @@ describe('Wiki Controllers', function () {
           project: 'test',
           name: 'hello world'
         },
-        pouchWrapper: pouchWrapperMock
+        wikiStore: pouchWrapperMock
       };
       return $controller('wiki.edit', params);
     }
@@ -158,7 +158,7 @@ describe('Wiki Controllers', function () {
     });
 
     it('should save the document and redirect to the viewUrl after editing', function() {
-      spyOn(pouchWrapperMock, 'put').andCallThrough();
+      spyOn(pouchWrapperMock, 'create').andCallThrough();
 
       resolvePouchGet(wikiDoc);
       resolvePouchPut('put');
@@ -169,7 +169,7 @@ describe('Wiki Controllers', function () {
       $scope.editComplete();
       $scope.$apply();
 
-      expect(pouchWrapperMock.put).toHaveBeenCalledWith(wikiDoc);
+      expect(pouchWrapperMock.create).toHaveBeenCalledWith(wikiDoc);
       expect($location.path()).toBe('/project/test/wiki/hello world');
     });
   });

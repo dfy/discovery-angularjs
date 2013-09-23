@@ -11,8 +11,11 @@ wikiModule.factory('myPouch', function() {
     return new PouchDB('testdiscovery');
 });
 
-wikiModule.factory('wikiStore', ['myPouch', function(myPouch) {
-    return myPouch;
+wikiModule.factory('wikiStore', ['pouchWrapper', function(pouchWrapper) {
+    return {
+        create: pouchWrapper.put,
+        find: pouchWrapper.get
+    };
 }]);
 
 wikiModule.factory('pouchWrapper', ['$q', '$rootScope', 'myPouch', function($q, $rootScope, myPouch) {

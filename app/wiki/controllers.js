@@ -3,8 +3,8 @@
 var wikiModule = (function(angular) {
   var module = angular.module('WikiModule', []);
 
-  var setDocOnScope = function($scope, $routeParams, pouchWrapper) {
-    pouchWrapper.get($routeParams.name).then(function(res) {
+  var setDocOnScope = function($scope, $routeParams, wikiStore) {
+    wikiStore.find($routeParams.name).then(function(res) {
       $scope.wikidoc = res;
     }, function(reason) {
       console.log(reason);
@@ -21,22 +21,22 @@ var wikiModule = (function(angular) {
 
   // if we get a 404, create new wikidoc with name from routeparams
 
-  module.controller('wiki.view', function($scope, $routeParams, pouchWrapper) {
-    setDocOnScope($scope, $routeParams, pouchWrapper);
+  module.controller('wiki.view', function($scope, $routeParams, wikiStore) {
+    setDocOnScope($scope, $routeParams, wikiStore);
 
     $scope.editUrl = 
       '/#/project/' + encodeURIComponent($routeParams.project) + 
       '/wiki/' + encodeURIComponent($routeParams.name) + '/edit';
   });
 
-  module.controller('wiki.edit', function($scope, $routeParams, $location, pouchWrapper) {
+  module.controller('wiki.edit', function($scope, $routeParams, $location, wikiStore) {
 
     var viewUrl = '/project/' + $routeParams.project + '/wiki/' + $routeParams.name;
     $scope.viewUrl = 
       '/#/project/' + encodeURIComponent($routeParams.project) + 
       '/wiki/' + encodeURIComponent($routeParams.name);
 
-    setDocOnScope($scope, $routeParams, pouchWrapper);
+    setDocOnScope($scope, $routeParams, wikiStore);
 
     /*$scope.wikidoc = {
       title: decodeURIComponent($routeParams.name),
@@ -51,7 +51,7 @@ var wikiModule = (function(angular) {
       var doc = $scope.wikidoc;
       doc._id = encodeURIComponent(doc.title);
 
-      pouchWrapper.put(doc).then(function(res) {
+      wikiStore.create(doc).then(function(res) {
         console.log("put: ");
         console.log(res);
         $location.path(viewUrl);
