@@ -10,13 +10,14 @@ var wikiModule = (function(angular) {
       console.log(reason);
       $scope.wikidoc = {
         title: $routeParams.name,
+        project: $routeParams.project,
         body: ''
       };
     });
   };
 
-  module.controller('wiki.index', function($scope) {
-    //
+  module.controller('wiki.index', function($scope, wikiStore) {
+    wikiStore.fetchAll('test');
   });
 
   // if we get a 404, create new wikidoc with name from routeparams
@@ -49,7 +50,7 @@ var wikiModule = (function(angular) {
 
     $scope.editComplete = function() {
       var doc = $scope.wikidoc;
-      doc._id = encodeURIComponent(doc.title);
+      doc._id = encodeURIComponent(doc.title); // TODO this line needs to move into the service
 
       wikiStore.create(doc).then(function(res) {
         console.log("put: ");
